@@ -9,16 +9,17 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
+import { toggleComplete, deleteTodo } from "../redux_components/actions";
 
 function TodoItem({ todo }) {
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
   const handleToggleComplete = () => {
-    dispatch({ type: "TOGGLE_COMPLETE", id: todo.id });
+    dispatch(toggleComplete(todo.id));
   };
 
   const handleDelete = () => {
-    dispatch({ type: "DELETE_TODO", id: todo.id });
+    dispatch(deleteTodo(todo.id));
   };
 
   return (
@@ -27,9 +28,10 @@ function TodoItem({ todo }) {
       display={"flex"}
       justify-content={"space-between"}
       divider={true}
+      key={todo.id}
     >
       <ListItemText>
-        <Typography>{todo.text}</Typography>
+        <Typography>{todo.task}</Typography>
       </ListItemText>
       {todo.completed ? (
         <IconButton onClick={handleDelete}>

@@ -1,7 +1,8 @@
 import * as React from "react";
-import { TextField, Button, FormControl, IconButton, colors } from "@mui/material";
+import { TextField, FormControl, IconButton } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import { useDispatch } from "react-redux";
+import { addTodo } from "../redux_components/actions";
 
 function TodoCreator() {
   const [todoText, setTodoText] = React.useState("");
@@ -11,8 +12,8 @@ function TodoCreator() {
     setTodoText(event.target.value);
   };
 
-  const addTodo = () => {
-    dispatch({ type: "ADD_TODO", text: todoText });
+  const handleaddTodo = () => {
+    dispatch(addTodo(todoText));
     setTodoText("");
   };
 
@@ -36,7 +37,7 @@ function TodoCreator() {
       />
       <IconButton
         color="success"
-        onClick={addTodo}
+        onClick={handleaddTodo}
         disabled={!todoText}
         sx={{width: "10%", margin: '2px'}}
       >

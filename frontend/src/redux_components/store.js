@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [],
@@ -6,19 +6,27 @@ const initialState = {
 
 function todoReducer(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_TODO':
+    case "INITIALIZE_TODOS":
       return {
         ...state,
-        todos: [...state.todos, { text: action.text, completed: false, id: Date.now() }],
+        todos: action.todos,
       };
-    case 'TOGGLE_COMPLETE':
+    case "ADD_TODO":
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          { task: action.todo.task, completed: action.todo.completed, id: action.todo.id },
+        ],
+      };
+    case "TOGGLE_COMPLETE":
       return {
         ...state,
         todos: state.todos.map((todo) =>
           todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
         ),
       };
-    case 'DELETE_TODO':
+    case "DELETE_TODO":
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.id),
@@ -30,6 +38,7 @@ function todoReducer(state = initialState, action) {
 
 const store = configureStore({
   reducer: todoReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });
 
 export default store;
