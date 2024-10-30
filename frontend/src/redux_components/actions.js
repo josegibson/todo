@@ -1,8 +1,8 @@
-
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const fetchTodos = () => async (dispatch) => {
   try {
-      const response = await fetch('http://127.0.0.1:5000/todos', { method: 'GET' });
+      const response = await fetch(`${BASE_URL}`, { method: 'GET' });
       const todos = await response.json();
       dispatch({ type: 'INITIALIZE_TODOS', todos });
   } catch (error) {
@@ -10,10 +10,9 @@ export const fetchTodos = () => async (dispatch) => {
   }
 };
 
-
 export const deleteTodo = (id) => async (dispatch) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/todos/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Failed to delete the todo item.');
       dispatch({ type: 'DELETE_TODO', id });
     } catch (error) {
@@ -24,7 +23,7 @@ export const deleteTodo = (id) => async (dispatch) => {
 
 export const addTodo = (text) => async (dispatch) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/todos', {
+      const response = await fetch(`${BASE_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text }),
@@ -40,8 +39,7 @@ export const addTodo = (text) => async (dispatch) => {
 
 export const toggleComplete = (id) => async (dispatch) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/todos/${id}/toggle`, { method: 'PUT' });
-      console.log(response);
+      const response = await fetch(`${BASE_URL}/${id}/toggle`, { method: 'PUT' });
       if (!response.ok) throw new Error('Failed to toggle the todo item.');
       dispatch({ type: 'TOGGLE_COMPLETE', id });
     } catch (error) {
