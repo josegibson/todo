@@ -2,7 +2,7 @@ services:
   - type: web
     name: frontend
     env: static
-    staticPublishPath: /usr/src/app/build
+    staticPublishPath: build
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
