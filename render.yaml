@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: frontend
+    env: static
+    staticPublishPath: /usr/src/app/build
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: https://<backend-service-name>.onrender.com
+
+  - type: web
+    name: backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: DATABASE_URL
+        value: <your-database-url>
