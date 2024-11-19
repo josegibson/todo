@@ -4,11 +4,6 @@ A simple Todo List application built with React for the frontend and Flask for t
 
 ## Link: https://josegibson.github.io/todo/
 
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-
 ## Features
 
 - Create new todo items
